@@ -5,7 +5,7 @@ Download the file and adjust the namesapce as appropriate
 
 In your C# project create a NetTransformationBuilder object and start applying actions to it. The object will automaticaly manage the net matrix for you
 
-````
+````csharp
 NetTransformationBuilder matrix = new NetTransformationBuilder();
 matrix.Translate(50,20);
 matrix.MirrorOnX();
@@ -13,7 +13,7 @@ matrix.Translate(-50,-20);
 ````
 
 Get the completed matrix as a double[,] array
-````
+````csharp
 doube[,] myNextTransformation = matrix.GetNetTransformation();
 ````
 
@@ -22,19 +22,19 @@ The NetTransformationBuilder does not apply any safeties on its transformations.
 
 #API
 Create a new transformation matrix by instantiating one
-````
+````csharp
 NetTransformationBuilder matrix = new NetTransformationBuilder();
 ````
 Apply translations by passing how much you want to translate by in the appropriate axis
-````
+````csharp
 matrix.Translate(xAxis,yAxis);
 ````
 Apply mirroring by calling the appropriate functions.
-````
+````csharp
 matrix.MirrorOnX(); //mirror on x-axis (flip all y values)
 matrix.MirrorOnY(); //mirror on y-axis (flip all x values)
 ````
 Fetch your results as a double[,] array
-````
+````csharp
 matrix.GetNetTransformation();
 ````
