@@ -11,7 +11,15 @@ namespace asgn5v1
         private double[,] netTransformation;
 
         public NetTransformationBuilder(){
-            
+            netTransformation = new double[4,4]{{ 1, 0, 0, 0},
+                                                { 0, 1, 0, 0},
+                                                { 0, 0, 1, 0},
+                                                { 0, 0, 0, 1}
+                                               };
+        }
+
+        public NetTransformationBuilder(double[,] netTransformation){
+            this.netTransformation = netTransformation;
         }
 
         public double[,] GetNetTransformation()
@@ -19,11 +27,11 @@ namespace asgn5v1
             return netTransformation;
         }
 
-        public void Translate(double xValue, double yValue){
+        public void Translate(double xValue, double yValue, double zValue){
             if(netTransformation == null){
-                netTransformation = new double[4,4]{ {1,0,0,0}, {0,1,0,0}, {0,0,1,0}, {xValue,yValue,0,1}};
+                netTransformation = new double[4,4]{ {1,0,0,0}, {0,1,0,0}, {0,0,1,0}, {xValue,yValue,zValue,1}};
             }else{
-                multiply(new double[4, 4] { { 1, 0, 0, 0 }, { 0, 1, 0, 0 }, { 0, 0, 1, 0 }, { xValue, yValue, 0, 1 } });
+                multiply(new double[4, 4] { { 1, 0, 0, 0 }, { 0, 1, 0, 0 }, { 0, 0, 1, 0 }, { xValue, yValue, zValue, 1 } });
             }
         }
 
@@ -51,16 +59,95 @@ namespace asgn5v1
             }
         }
 
-        public void Scale(double xValue, double yValue)
+        public void Scale(double xValue, double yValue, double zValue)
         {
             if (netTransformation == null)
             {
-                netTransformation = new double[4, 4] { { xValue, 0, 0, 0 }, { 0, yValue, 0, 0 }, { 0, 0, 1, 0 }, { 0, 0, 0, 1 } };
+                netTransformation = new double[4, 4] { { xValue, 0, 0, 0 }, { 0, yValue, 0, 0 }, { 0, 0, zValue, 0 }, { 0, 0, 0, 1 } };
             }
             else
             {
-                multiply(new double[4, 4] { { xValue, 0, 0, 0 }, { 0, yValue, 0, 0 }, { 0, 0, 1, 0 }, { 0, 0, 0, 1 } });
+                multiply(new double[4, 4] { { xValue, 0, 0, 0 }, { 0, yValue, 0, 0 }, { 0, 0, zValue, 0 }, { 0, 0, 0, 1 } });
             }
+        }
+
+        public void RotateOnZ(double radians, bool clockwise = true)
+        {
+            if (netTransformation == null)
+            {
+                netTransformation = new double[4, 4] { { Math.Cos(radians), Math.Sin(radians), 0, 0 }, 
+                                                       { Math.Sin(radians), Math.Cos(radians), 0, 0 }, 
+                                                       { 0, 0, 1, 0 }, 
+                                                       { 0, 0, 0, 1 } };
+                this.alterForRotationDirection(netTransformation, clockwise);
+            }
+            else
+            {
+                multiply(alterForRotationDirection(new double[4,4] { { Math.Cos(radians), Math.Sin(radians), 0, 0 }, { Math.Sin(radians), Math.Cos(radians), 0, 0 }, {0, 0, 1, 0}, {0, 0, 0, 1} }, clockwise));
+            }
+        }
+
+        public void RotateOnY(double radians, bool clockwise = true)
+        {
+            double[,] temp = new double[4, 4] { { Math.Cos(radians), 0, Math.Sin(radians), 0 }, 
+                                                { 0, 1, 0, 0 }, 
+                                                { Math.Sin(radians), 0, Math.Cos(radians), 0 }, 
+                                                { 0, 0, 0, 1 } };
+
+            if (clockwise)
+            {
+                temp[0, 2] *= -1;
+            }
+            else
+            {
+                temp[2, 0] *= -1;
+            }
+
+
+            if (netTransformation == null)
+            {
+                this.netTransformation = temp;
+            }
+            else
+            {
+                multiply(temp);
+            }
+        }
+
+        public void RotateOnX(double radians, bool clockwise = true)
+        {
+            double[,] temp = new double[4, 4] { { 1, 0, 0, 0 }, 
+                                                { 0, Math.Cos(radians), Math.Sin(radians), 0 }, 
+                                                { 0, Math.Sin(radians), Math.Cos(radians), 0 }, 
+                                                { 0, 0, 0, 1 } };
+            if (clockwise)
+            {
+                temp[1, 2] *= -1;
+            }
+            else
+            {
+                temp[2, 1] *= -1;
+            }
+
+            if (netTransformation == null)
+            {
+                this.netTransformation = temp;
+            }
+            else
+            {
+                multiply(temp);
+            }
+        }
+
+        private double[,] alterForRotationDirection(double[,] matrix, bool clockwise)
+        {
+            if (clockwise)
+            {
+                matrix[1, 0] *= -1;
+                //matrix[1, 0] *= -1;
+                return matrix;
+            }
+            return matrix;
         }
 
         private void multiply(double[,] matrix)
