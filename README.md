@@ -29,7 +29,7 @@ NetTransformationBuilder matrix = new NetTransformationBuilder(double[4,4] netMa
 ````
 Apply translations by passing how much you want to translate by in the appropriate axis
 ````csharp
-matrix.Translate(xAxis,yAxis, zAxis);
+matrix.Translate(double xAxis, double yAxis, double zAxis);
 ````
 Apply mirroring by calling the appropriate functions. Z mirror is currently not supported
 ````csharp
@@ -38,18 +38,13 @@ matrix.MirrorOnY(); //mirror on y-axis (flip all x values)
 ````
 Apply scaling by passing the factor to scale by in each axis
 ````csharp
-matrix.Scale(xFactor, yFactor, zFactor);
+matrix.Scale(double xFactor, double yFactor, double zFactor);
 ````
 Apply rotation by calling the appropriate function passing how many radians and optionaly directions. By default the method assumes clockwise rotation
 ````csharp
-matrix.RotateOnZ(radians, clockwise?);
-matrix.RoateOnY(radians, clockwise?);
-matrix.RotateOnX(radians, clockwise?);
-
-//shortcut for clockwise rotation
-matrix.RotateOnZ(radians);
-matrix.RotateOnY(radians);
-matrix.RotateOnX(radians);
+matrix.RotateOnZ(double radians, bool clockwise = true);
+matrix.RoateOnY(double radians, bool clockwise = true);
+matrix.RotateOnX(double radians, bool clockwise = true);
 ````
 Fetch your results as a double[,] array
 ````csharp
