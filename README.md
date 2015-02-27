@@ -43,7 +43,7 @@ Apply scaling by passing the factor to scale by in each axis
 ````csharp
 matrix.Scale(double xFactor, double yFactor, double zFactor);
 ````
-Apply rotation by calling the appropriate function passing how many radians and optionaly directions. By default the method assumes clockwise rotation
+Apply rotation by calling the appropriate function passing how many radians and optionaly directions. By default the method assumes clockwise rotation. Clockwise rotation is determined by looking at 0,0,0 from the axis you are rotating on (eg. for RotateOnZ, clockwise is determined if you were standing at 0,0,1 and looking at 0,0,0)
 ````csharp
 matrix.RotateOnZ(double radians, bool clockwise = true);
 matrix.RoateOnY(double radians, bool clockwise = true);
