@@ -18,7 +18,9 @@ doube[,] myNextTransformation = matrix.GetNetTransformation();
 ````
 
 ## Warning
-The NetTransformationBuilder does not apply any safeties on its transformations. Example mirrors can only work if the shape is against the appropriate axis it is mirroring on. You will have to make sure you have translated your net matrix approrpiatly so that the mirror does work. Unless of course the matrix of the original shape is already on the axis you are mirroring on
+<b>NetTransofmratonBuilder Is Designed To Build NetTransformation Matrixes For Right-Handed Co-ordinate Systems</b>
+
+The NetTransformationBuilder does not apply any safeties on any of its transformations. Example mirrors can only work if the shape is against the appropriate axis it is mirroring on. You will have to make sure you have translated your net matrix approrpiatly so that the mirror does work. Unless of course the matrix of the original shape is already on the axis you are mirroring on. Rotations are the same
 
 #API
 Create a new transformation matrix by instantiating one. If you already have a 4x4 net transformation you can pass it as part of the constructor for the  NetTransformationBuilder to manage for you
@@ -31,10 +33,11 @@ Apply translations by passing how much you want to translate by in the appropria
 ````csharp
 matrix.Translate(double xAxis, double yAxis, double zAxis);
 ````
-Apply mirroring by calling the appropriate functions. Z mirror is currently not supported
+Apply mirroring by calling the appropriate functions. Z mirror is currently partialy supported but untested
 ````csharp
 matrix.MirrorOnX(); //mirror on x-axis (flip all y values)
 matrix.MirrorOnY(); //mirror on y-axis (flip all x values)
+matrix.MirrorOnZ(); //mirror on z-axis (flip all z values)
 ````
 Apply scaling by passing the factor to scale by in each axis
 ````csharp
