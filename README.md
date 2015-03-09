@@ -14,8 +14,10 @@ matrix.Translate(-50,-20, 0);
 
 Get the completed matrix as a double[,] array
 ````csharp
-doube[,] myNextTransformation = matrix.GetNetTransformation();
+doube[,] myNetTransformation = matrix.GetNetTransformation();
 ````
+
+See the API section of the README for a full breakdown of all the functions
 
 ## Warning
 <b>NetTransofmratonBuilder Is Designed To Build NetTransformation Matrixes For Right-Handed Co-ordinate Systems</b>
