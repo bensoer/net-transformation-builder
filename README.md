@@ -56,5 +56,5 @@ matrix.ShearVertical(double factor);
 ````
 Fetch your results as a double[,] array
 ````csharp
-matrix.GetNetTransformation();
+double[,] myNetMatrix = matrix.GetNetTransformation();
 ````
