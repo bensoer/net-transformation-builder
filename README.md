@@ -49,6 +49,11 @@ matrix.RotateOnZ(double radians, bool clockwise = true);
 matrix.RoateOnY(double radians, bool clockwise = true);
 matrix.RotateOnX(double radians, bool clockwise = true);
 ````
+Apply A Horizontal or Vertical shear with the following functions. Currently only 2D shears along the X and Y axis are supported.
+````csharp
+matrix.ShearHorizontal(double factor);
+matrix.ShearVertical(double factor);
+````
 Fetch your results as a double[,] array
 ````csharp
 matrix.GetNetTransformation();
