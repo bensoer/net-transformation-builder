@@ -142,6 +142,31 @@ namespace asgn5v1
             multiply(alterForRotationDirection(temp, 1, 2, clockwise));
 
         }
+        /// <summary>
+        /// Shears the object in the Horizontal direction effecting the X-Axis. Note this function has no safety and the object must translate appropriatly for shear to work
+        /// </summary>
+        /// <param name="factor"> the factor of shearing </param>
+        public void ShearHorizontal(double factor)
+        {
+            double[,] temp = new double[4, 4] { { 1, 0, 0, 0},
+                                                { factor, 1, 0, 0},
+                                                { 0, 0, 1, 0},
+                                                { 0, 0, 0, 1} };
+            multiply(temp);
+        }
+
+        /// <summary>
+        /// Shears the boject in the Vertical direciton effecting the Y-Axis. Note this function has no safety and the object must be translated appropriatly for shear to work
+        /// </summary>
+        /// <param name="factor"> the factor of shearing </param>
+        public void ShearVertical(double factor)
+        {
+            double[,] temp = new double[4, 4] { { 1, factor, 0, 0},
+                                                { 0, 1, 0, 0},
+                                                { 0, 0, 1, 0},
+                                                { 0, 0, 0, 1} };
+            multiply(temp);
+        }
 
         //row and col assume what row and colum to apply negative to for clockwise rotation. method will compensate if not clockwise
         private double[,] alterForRotationDirection(double[,] matrix, int row, int col, bool clockwise)
